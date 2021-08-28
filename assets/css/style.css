@@ -1,0 +1,13 @@
+
+.header {
+    color: tomato;
+    font-size: 60px;
+    text-align: center;
+}
+
+
+
+.item {
+    border:  2px solid teal;
+    height: 400px;
+}
