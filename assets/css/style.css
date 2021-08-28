@@ -1,8 +1,14 @@
 
-.header {
-    color: tomato;
-    font-size: 60px;
+body {
+    background-color: rgb(223, 243, 255);
+}
+
+.myHeader h1 {
+    color: rgb(60, 130, 235);
+    font-size: 90px;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 
