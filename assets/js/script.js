@@ -7,14 +7,13 @@ var submitButton = $('.submitButton');
 var latData;
 var lonData;
 var cityInput;
-var dateData_1;
-var tempData_1;
-var humidityData_1;
-var windSpeedData_1;
-var uvIndexData_1;
-var cityNameDisp;
 
-
+var dispDay0 = $('.dispDay0');
+var dispDay1 = $('.dispDay1');
+var dispDay2 = $('.dispDay2');
+var dispDay3 = $('.dispDay3');
+var dispDay4 = $('.dispDay4');
+var dispDay5 = $('.dispDay5');
 
 /*** ------ function for submit button ------ ***/
 submitButton.on('click', function () {
@@ -51,13 +50,13 @@ submitButton.on('click', function () {
             lonData = data.city.coord.lon;
             console.log(latData);
             console.log(lonData);
-            cityNameDisp = data.city.name;
-            console.log(cityDisp);
+            cityNameDisp = data.city.name;  // For displaying city properly regardless of user input
+            console.log(cityNameDisp);
 
             /* ------ URL for current/5 day forecast fetch ------ */
             var curropenWeatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latData + '&lon=' + lonData + '&exclude=minutely,hourly&appid=' + apiKey + "&units=imperial"
             console.log(curropenWeatherUrl);
-        
+
             /* ------ fetch for current/5 day forecast ------ */
             fetch(curropenWeatherUrl)
                 .then(function (response) {
@@ -66,51 +65,78 @@ submitButton.on('click', function () {
                 .then(function (data) {
                     console.log(data);
 
-                    /* ------ collect data for current forecast ------ */
+                    /* ------ collect data for current/5 day forecast ------ */
+                    for (i=0; i < 6; i++) {
 
+                        var dayData = {
+                            tempData:"",
+                            humidityData:"",
+                            windSpeedData:"",
+                            uvIndexData:""
+                        };
+                    
+                        dayData.tempData = data.daily[i].temp.day;
+                        dayData.humidityData = data.daily[i].humidity;
+                        dayData.windSpeedData = data.daily[i].wind_speed;
+                        dayData.uvIndexData = data.daily[i].uvi;
+                        console.log(dayData);
+                        
+                        var dispDayArray = [dispDay0, dispDay1, dispDay2, dispDay3, dispDay4, dispDay5];
 
-                    // var icon = data.daily.weather.icon;
-                    // console.log(icon);
-                    var alert1 = data.alerts[0].event;
-                    console.log(alert1);
+                        var tempDataEl = $('<p>' + "Temp:  " + dayData.tempData + " F" + '<p>');
+                        dispDayArray[i].append(tempDataEl);
 
+                        var windSpeedDataEl = $('<p>' + "Wind:  " + dayData.windSpeedData + " MPH" + '<p>');
+                        dispDayArray[i].append(windSpeedDataEl);
 
-                    /* ------ future 5 day forecast ------ */
+                        var humidityDataEl = $('<p>' + "Humidity:  " + dayData.humidityData + " %" + '<p>');
+                        dispDayArray[i].append(humidityDataEl);
+
+                        var uvIndexDataEl = $('<p>' + "UV Index:  " + dayData.uvIndexData + '<p>');
+                        dispDayArray[i].append(uvIndexDataEl);
+
+                                    
+
+                    }
+
+                    
+                
+                
+
+                
 
 
                 })
         })
-
+    
 })
 
 
+                   
+
+                    // arrayDate[i] = $('<p>');
+                    // arrayDate[i].text(humidityData);
+
+                    // arrayDate[i] = $('<p>');
+                    // arrayDate[i].text(windSpeedData);
+
+                    // arrayDate[i] = $('<p>');
+                    // arrayDate[i].text(uvIndexData);
 
 
 
-// var cityInput_2;
-// var dateData_2;
-// var tempData_2;
-// var humidityData_2;
-// var windSpeedData_2;
-// var uvIndexData_2;
+                    // else {
+                       
+                    // }
+                     
+ 
+                    // var dateData;
+                    // console.log(dateData);
+                    // var icon = data.daily.weather.icon;
+                    // console.log(icon);
+                    // var alert1 = data.alerts[0].event;
+                    // console.log(alert1);
 
-// var cityInput_3;
-// var dateData_3;
-// var tempData_3;
-// var humidityData_3;
-// var windSpeedData_3;
-// var uvIndexData_3;
+                    
+                    /* ------ passing forcast data to html file ------ */
 
-// var cityInput_4;
-// var dateData_4;
-// var tempData_4;
-// var humidityData_4;
-// var windSpeedData_4;
-// var uvIndexData_4;
-
-// var cityInput_5;
-// var dateData_5;
-// var tempData_5;
-// var humidityData_5;
-// var windSpeedData_5;
-// var uvIndexData_5;
