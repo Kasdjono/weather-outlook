@@ -11,12 +11,29 @@ body {
     margin-bottom: 15px;
 }
 
+.searchContainer {
+    height: 500px;
+}
+
+.currentDayContainer {
+    height: 250px;
+}
+
+.forecastHeader {
+    padding-top: 15px;
+    font-size: 15px;
+}
+
+.futureDayContainer {
+    min-height: 210px;
+}
+
 .futureForcast {
-    font-size: 14px;
+    font-size: 10px;
 }
 
 
-.item {
+/* .item {
     border:  2px solid teal;
     height: 400px;
-}
+} */
