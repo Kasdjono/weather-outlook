@@ -72,33 +72,23 @@ submitButton.on('click', function () {
                     console.log(data);
 
                     /* ------ display data for current forecast ------ */
-                    var dayData = {
-                        tempData:"",
-                        humidityData:"",
-                        windSpeedData:"",
-                        uvIndexData:""
-                    };
+                    var iconData = $('<image>');
+                    iconData.attr("src",`https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
+                    iconData.text("icon");
+                    dispDay0.append(iconData);
 
-                    dayData.iconData = data.current.weather[0].icon;
-                    console.log(dayData.iconData);
-                    dayData.tempData = data.current.temp;
-                    dayData.humidityData = data.current.humidity;
-                    dayData.windSpeedData = data.current.wind_speed;
-                    dayData.uvIndexData = data.current.uvi;
+                    var tempData = data.current.temp;
+                    var humidityData = data.current.humidity;
+                    var windSpeedData = data.current.wind_speed;
+                    var uvIndexData = data.current.uvi;
 
-                    // var tempDataEl = $('<p>' + dayData.iconData + '<p>');
-                    // dispDay0.append(tempDataEl);
-
-                    var tempDataEl = $('<p>' + "Temp:  " + dayData.tempData + " F" + '<p>');
+                    var tempDataEl = $('<p>' + "Temp:  " + tempData + " F" + '<p>');
                     dispDay0.append(tempDataEl);
-
-                    var windSpeedDataEl = $('<p>' + "Wind:  " + dayData.windSpeedData + " MPH" + '<p>');
+                    var windSpeedDataEl = $('<p>' + "Wind:  " + windSpeedData + " MPH" + '<p>');
                     dispDay0.append(windSpeedDataEl);
-
-                    var humidityDataEl = $('<p>' + "Humidity:  " + dayData.humidityData + " %" + '<p>');
+                    var humidityDataEl = $('<p>' + "Humidity:  " + humidityData + " %" + '<p>');
                     dispDay0.append(humidityDataEl);
-
-                    var uvIndexDataEl = $('<p>' + "UV Index:  " + dayData.uvIndexData + '<p>');
+                    var uvIndexDataEl = $('<p>' + "UV Index:  " + uvIndexData + '<p>');
                     dispDay0.append(uvIndexDataEl);
 
                     /* ------ display data for 5 day forecast ------ */
@@ -106,35 +96,34 @@ submitButton.on('click', function () {
 
                         var dispDayArray = [dispDay1, dispDay2, dispDay3, dispDay4, dispDay5];
 
-                        var dayData = {
-                            iconData:"",
-                            tempData:"",
-                            humidityData:"",
-                            windSpeedData:"",
-                            uvIndexData:""
-                        };
-                    
-                        dayData.iconData = data.daily[0].weather[0].icon;
-                        console.log(dayData.iconData)
+                        /* ------ displays date for each day ------ */
+                        dateData = moment().add(i+1, 'd');
+                        dateData = dateData.format('MM/D/YYYY');   
+                        var insertDayEL = $('<p>' + dateData + '<p>');
+                        dispDayArray[i].append(insertDayEL);
 
-                        dayData.tempData = data.daily[i].temp.day;
-                        dayData.humidityData = data.daily[i].humidity;
-                        dayData.windSpeedData = data.daily[i].wind_speed;
-                        dayData.uvIndexData = data.daily[i].uvi;
-                        
-                        // var tempDataEl = $('<p>' + dayData.iconData + '<p>');
-                        // dispDayArray[i].append(tempDataEl);
+                        /* ------ displays icon for each day ------ */
+                        var iconData = $('<image>');
+                        iconData.attr("src",`https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
+                        iconData.text("icon");
+                        dispDayArray[i].append(iconData);
 
-                        var tempDataEl = $('<p>' + "Temp:  " + dayData.tempData + " F" + '<p>');
+                        /* ------ displays data for each day ------ */
+                        var tempData = data.daily[i].temp.day;
+                        var humidityData = data.daily[i].humidity;
+                        var windSpeedData = data.daily[i].wind_speed;
+                        var uvIndexData = data.daily[i].uvi;
+
+                        var tempDataEl = $('<p>' + "Temp:  " + tempData + " F" + '<p>');
                         dispDayArray[i].append(tempDataEl);
 
-                        var windSpeedDataEl = $('<p>' + "Wind:  " + dayData.windSpeedData + " MPH" + '<p>');
+                        var windSpeedDataEl = $('<p>' + "Wind:  " + windSpeedData + " MPH" + '<p>');
                         dispDayArray[i].append(windSpeedDataEl);
 
-                        var humidityDataEl = $('<p>' + "Humidity:  " + dayData.humidityData + " %" + '<p>');
+                        var humidityDataEl = $('<p>' + "Humidity:  " + humidityData + " %" + '<p>');
                         dispDayArray[i].append(humidityDataEl);
 
-                        var uvIndexDataEl = $('<p>' + "UV Index:  " + dayData.uvIndexData + '<p>');
+                        var uvIndexDataEl = $('<p>' + "UV Index:  " + uvIndexData + '<p>');
                         dispDayArray[i].append(uvIndexDataEl);
                                     
 
