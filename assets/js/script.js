@@ -32,7 +32,6 @@ submitButton.on('click', function () {
 
     var listItem = $("<li>");
     listItem.text(savedCity.slice(-1).pop());
-    //listItem.attr("style", "margin:0 auto;");
     cityList.append(listItem);
 
     /* ------ city name input ------*/
@@ -71,6 +70,7 @@ submitButton.on('click', function () {
             /* ------ For displaying city properly and date/time regardless of user input ------ */
             cityNameDisp = data.city.name;  
             console.log(cityNameDisp);
+            currCity.html("");
             currCity.append(cityNameDisp + liveTime);
 
             /* ------ URL for current/5 day forecast fetch ------ */
@@ -85,10 +85,13 @@ submitButton.on('click', function () {
                 .then(function (data) {
                     console.log(data);
 
+                    dispDay0.html("");
+
                     /* ------ display data for current forecast ------ */
                     var iconData = $('<image>');
                     iconData.attr("src",`https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
                     iconData.text("icon");
+                    console.log(iconData)
                     dispDay0.append(iconData);
 
                     var tempData = data.current.temp;
@@ -110,6 +113,9 @@ submitButton.on('click', function () {
 
                         var dispDayArray = [dispDay1, dispDay2, dispDay3, dispDay4, dispDay5];
 
+                        dispDayArray[i].html("");
+
+
                         /* ------ displays date for each day ------ */
                         dateData = moment().add(i+1, 'd');
                         dateData = dateData.format('MM/D/YYYY');   
@@ -123,10 +129,10 @@ submitButton.on('click', function () {
                         dispDayArray[i].append(iconData);
 
                         /* ------ displays data for each day ------ */
-                        var tempData = data.daily[i].temp.day;
-                        var humidityData = data.daily[i].humidity;
-                        var windSpeedData = data.daily[i].wind_speed;
-                        var uvIndexData = data.daily[i].uvi;
+                        var tempData = data.daily[i+1].temp.day;
+                        var humidityData = data.daily[i+1].humidity;
+                        var windSpeedData = data.daily[i+1].wind_speed;
+                        var uvIndexData = data.daily[i+1].uvi;
 
                         var tempDataEl = $('<p>' + "Temp:  " + tempData + " F" + '<p>');
                         dispDayArray[i].append(tempDataEl);
