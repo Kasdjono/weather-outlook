@@ -1,6 +1,6 @@
 /* ------ saved city names ------*/
-// var searchByCityEl = $('.history');
-// var searchHistoryEl = $('.')
+var cityList = $('.cityList');
+var savedCity = [];
 
 /* ------ search button ------ */
 var submitButton = $('.submitButton');
@@ -20,6 +20,20 @@ var dispDay5 = $('.dispDay5');
 
 /*** ------ function for submit button ------ ***/
 submitButton.on('click', function () {
+
+    /* ------ saving city search in local storage ------ */
+    var cityInput = $('.cityInput');
+    var cityInputVal = cityInput.val();
+
+    savedCity.push(cityInputVal);
+    localStorage.setItem("city", JSON.stringify(savedCity));
+
+    savedCity = JSON.parse(localStorage.getItem("city"));
+
+    var listItem = $("<li>");
+    listItem.text(savedCity.slice(-1).pop());
+    //listItem.attr("style", "margin:0 auto;");
+    cityList.append(listItem);
 
     /* ------ city name input ------*/
     var cityInput = $('.cityInput');
@@ -133,4 +147,22 @@ submitButton.on('click', function () {
         })
     
 })
+
+function dispCity() {
+
+    if (localStorage.getItem("city")) {
+
+        savedCity = JSON.parse(localStorage.getItem("city"));
+
+        for (var i = 0; i < savedCity.length; i++) {
+        
+            var listItem = $("<li>");
+            listItem.text(savedCity[i]);
+            //listItem.attr("style", "margin:0 auto;");
+            cityList.append(listItem);
+        }
+    }
+}
+
+dispCity();
 
