@@ -68,7 +68,7 @@ submitButton.on('click', function () {
             liveTime = currTime;
 
             /* ------ For displaying city properly and date/time regardless of user input ------ */
-            cityNameDisp = data.city.name;  
+            cityNameDisp = data.city.name;
             console.log(cityNameDisp);
             currCity.html("");
             currCity.append(cityNameDisp + liveTime);
@@ -89,7 +89,7 @@ submitButton.on('click', function () {
 
                     /* ------ display data for current forecast ------ */
                     var iconData = $('<image>');
-                    iconData.attr("src",`https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
+                    iconData.attr("src", `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
                     iconData.text("icon");
                     console.log(iconData)
                     dispDay0.append(iconData);
@@ -105,11 +105,28 @@ submitButton.on('click', function () {
                     dispDay0.append(windSpeedDataEl);
                     var humidityDataEl = $('<p>' + "Humidity:  " + humidityData + " %" + '<p>');
                     dispDay0.append(humidityDataEl);
+                    
+
                     var uvIndexDataEl = $('<p>' + "UV Index:  " + uvIndexData + '<p>');
+                    
+                    /* ------ change color depending on UVI value ------ */
+                    // console.log(uvIndexData)
+                    // if (uvIndexData < 3) {
+                    //  uvIndexDataEl.attr("color: green");
+                    // }
+                    // else if (uvIndexData < 5) {
+                    //     uvIndexDataEl.attr("color: yellow");
+                    // }
+                    // else {
+                    //     uvIndexDataEl.attr("color: red");
+                    // }
                     dispDay0.append(uvIndexDataEl);
 
+
+
+
                     /* ------ display data for 5 day forecast ------ */
-                    for (i=0; i < 5; i++) {
+                    for (i = 0; i < 5; i++) {
 
                         var dispDayArray = [dispDay1, dispDay2, dispDay3, dispDay4, dispDay5];
 
@@ -117,22 +134,22 @@ submitButton.on('click', function () {
 
 
                         /* ------ displays date for each day ------ */
-                        dateData = moment().add(i+1, 'd');
-                        dateData = dateData.format('MM/D/YYYY');   
+                        dateData = moment().add(i + 1, 'd');
+                        dateData = dateData.format('MM/D/YYYY');
                         var insertDayEL = $('<p>' + dateData + '<p>');
                         dispDayArray[i].append(insertDayEL);
 
                         /* ------ displays icon for each day ------ */
                         var iconData = $('<image>');
-                        iconData.attr("src",`https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
+                        iconData.attr("src", `https://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
                         iconData.text("icon");
                         dispDayArray[i].append(iconData);
 
                         /* ------ displays data for each day ------ */
-                        var tempData = data.daily[i+1].temp.day;
-                        var humidityData = data.daily[i+1].humidity;
-                        var windSpeedData = data.daily[i+1].wind_speed;
-                        var uvIndexData = data.daily[i+1].uvi;
+                        var tempData = data.daily[i + 1].temp.day;
+                        var humidityData = data.daily[i + 1].humidity;
+                        var windSpeedData = data.daily[i + 1].wind_speed;
+                        var uvIndexData = data.daily[i + 1].uvi;
 
                         var tempDataEl = $('<p>' + "Temp:  " + tempData + " F" + '<p>');
                         dispDayArray[i].append(tempDataEl);
@@ -145,13 +162,13 @@ submitButton.on('click', function () {
 
                         var uvIndexDataEl = $('<p>' + "UV Index:  " + uvIndexData + '<p>');
                         dispDayArray[i].append(uvIndexDataEl);
-                                    
+
 
                     }
-           
+
                 })
         })
-    
+
 })
 
 function dispCity() {
@@ -161,7 +178,7 @@ function dispCity() {
         savedCity = JSON.parse(localStorage.getItem("city"));
 
         for (var i = 0; i < savedCity.length; i++) {
-        
+
             var listItem = $("<li>");
             listItem.text(savedCity[i]);
             //listItem.attr("style", "margin:0 auto;");
